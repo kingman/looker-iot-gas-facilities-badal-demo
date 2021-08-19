@@ -147,8 +147,8 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     color_application:
-      collection_id: keyera
-      palette_id: keyera-categorical-0
+      collection_id: d754397b-2c05-4470-bbbb-05eb4c2b15cd
+      palette_id: b0768e0d-03b8-4c12-9e30-9ada6affc357
     show_sql_query_menu_options: false
     show_totals: true
     show_row_totals: true
@@ -156,8 +156,8 @@
       measurements.total_value:
         is_active: true
         palette:
-          palette_id: keyera-sequential-0
-          collection_id: keyera
+          palette_id: b0768e0d-03b8-4c12-9e30-9ada6affc357
+          collection_id: d754397b-2c05-4470-bbbb-05eb4c2b15cd
     defaults_version: 1
     listen: {}
     row: 2
@@ -434,8 +434,8 @@
     value_labels: legend
     label_type: labPer
     color_application:
-      collection_id: keyera
-      palette_id: keyera-categorical-0
+      collection_id: d754397b-2c05-4470-bbbb-05eb4c2b15cd
+      palette_id: b0768e0d-03b8-4c12-9e30-9ada6affc357
       options:
         steps: 5
     series_colors: {}

@@ -59,6 +59,7 @@ view: measurements {
   parameter: timeframe_picker {
     label: "Time Granularity"
     type: string
+    allowed_value: { value: "Second" }
     allowed_value: { value: "Minute" }
     allowed_value: { value: "10 Minutes" }
     allowed_value: { value: "Hour" }
@@ -73,6 +74,7 @@ view: measurements {
     type: string
     sql:
       CASE
+        WHEN {% parameter timeframe_picker %} = 'Second' THEN CAST(${measurements.timestamp_second} AS STRING)
         WHEN {% parameter timeframe_picker %} = 'Minute' THEN CAST(${measurements.timestamp_minute} AS STRING)
         WHEN {% parameter timeframe_picker %} = '10 Minutes' THEN CAST(${measurements.timestamp_minute10} AS STRING)
         WHEN {% parameter timeframe_picker %} = 'Hour' THEN CAST(${measurements.timestamp_hour} AS STRING)
@@ -81,37 +83,6 @@ view: measurements {
         WHEN {% parameter timeframe_picker %} = 'Month' THEN CAST(${measurements.timestamp_month} AS STRING)
       END ;;
   }
-
-  # dimension: time {
-
-  #   sql:
-  #     CASE
-  #       WHEN
-  #         DATE_DIFF(
-  #                 cast({% date_start timestamp_date %} as date),
-  #                 cast({% date_end timestamp_date  %} as date),
-  #                 DAY
-  #                 ) >365
-  #       THEN cast(${timestamp_week}) as string
-  #       WHEN
-  #         DATE_DIFF(
-  #                 cast({% date_start timestamp_date %} as date),
-  #                 cast({% date_end timestamp_date  %} as date),
-  #                 DAY
-  #                 ) >30
-  #       THEN cast(${timestamp_date}) as string
-  #       WHEN
-  #         DATE_DIFF(
-  #                 cast({% date_start timestamp_date %} as date),
-  #                 cast({% date_end timestamp_date  %} as date),
-  #                 DAY
-  #                 ) >1
-  #       THEN cast(${timestamp_hour}) as string
-
-  #       ELSE CAST(${timestamp_minute} AS STRING)
-  #       END
-  #     ;;
-  # }
 
 
 ### MEASURES ###

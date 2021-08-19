@@ -37,7 +37,14 @@ view: events_summary_view {
   dimension: event_type {
     type: string
     sql: ${TABLE}.event_type ;;
+    link: {
+      label: "Examine this Event"
+      #url: "https://badalio.ca.looker.com/dashboards-next/11?Property%20Measured={{ events_summary_view.property_measured._value | encode_uri }}&Time%20Granularity=Minute&Timeframe=before%20{{ events_summary_view.end_minute._value | encode_uri }}"
+      url: "https://badalio.ca.looker.com/dashboards-next/11?Property%20Measured={{ events_summary_view.property_measured._value | encode_uri }}&Time%20Granularity=Minute&Timeframe=after%20{{ events_summary_view.start_minute._value | encode_uri }}"
+      icon_url: "http://www.looker.com/favicon.ico"
+    }
   }
+# {{ measurements.timestamp_raw._value }}
 
   dimension: property_measured {
     type: string
@@ -52,6 +59,17 @@ view: events_summary_view {
           WHEN ${property_measured} = 'temperature' THEN 'High'
           WHEN ${property_measured} = 'flowrate' THEN 'Medium'
           ELSE 'Medium'
+        END;;
+  }
+
+  dimension: severity_level {
+    type: number
+    sql:
+        CASE
+          WHEN ${severity} = 'Low' THEN 1
+          WHEN ${severity} = 'Medium' THEN 2
+          WHEN ${severity} = 'High' THEN 3
+          ELSE 4
         END;;
   }
 

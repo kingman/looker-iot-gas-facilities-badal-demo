@@ -74,6 +74,11 @@ view: measurements_raw_events {
     sql: ${value} ;;
   }
 
+  measure: average_value {
+    type: average
+    sql: ${value} ;;
+  }
+
   measure: count {
     type: count
     drill_fields: []

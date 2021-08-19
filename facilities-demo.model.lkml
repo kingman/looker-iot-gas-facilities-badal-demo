@@ -29,7 +29,7 @@ explore: measurements {
   }
 
   join: measurements_raw_events {
-    relationship: one_to_many
+    relationship: one_to_one
     sql_on: ${measurements.device_id} = ${measurements_raw_events.device_id}
             AND ${measurements.timestamp_raw} = ${measurements_raw_events.timestamp_raw}
             AND ${measurements.property_measured} = ${measurements_raw_events.property_measured};;
