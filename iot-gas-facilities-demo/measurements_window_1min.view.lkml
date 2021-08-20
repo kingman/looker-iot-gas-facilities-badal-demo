@@ -10,27 +10,31 @@ view: measurements_window_1min {
   }
 
   dimension: device_id {
+    hidden: no
     type: string
-    hidden: yes
     sql: ${TABLE}.device_id ;;
   }
 
   dimension: property_measured {
+    hidden: no
     type: string
     sql: ${TABLE}.property_measured ;;
   }
 
   dimension: relative_strength_indicator {
+    hidden: yes
     type: number
     sql: ${TABLE}.RELATIVE_STRENGTH_INDICATOR ;;
   }
 
   dimension: simple_moving_average {
+    hidden: yes
     type: number
     sql: ${TABLE}.SIMPLE_MOVING_AVERAGE ;;
   }
 
   dimension_group: timestamp {
+    hidden: no
     type: time
     timeframes: [
       raw,
@@ -47,6 +51,8 @@ view: measurements_window_1min {
     ]
     sql: ${TABLE}.timestamp ;;
   }
+
+### Measures
 
   measure: count_of_minute_measurements {
     type: count

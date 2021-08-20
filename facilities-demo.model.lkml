@@ -6,6 +6,21 @@ include: "/dashboards/*.dashboard.lookml"
 explore: measurements {
   persist_for: "0 seconds" #This turns the Looker cache off for queries originating from this explore
 
+  # Added an aggregate table to speed up the load time for the "Assets" tile in the System Overview dashboard
+  aggregate_table: rollup__assets_asset_id__assets_asset_type__paths_designation__property_measured__3 {
+    materialization: {
+      sql_trigger_value: SELECT CURDATE() ;;
+    }
+    query: {
+      dimensions: [assets.asset_id, assets.asset_type, paths.designation, property_measured]
+      measures: [average_value]
+      filters: [
+        measurements.property_measured: "temperature,pressure,flowrate,density",
+        measurements.timestamp_date: "7 day"
+      ]
+    }
+  }
+
   join: devices {
    relationship: many_to_one
    sql_on: ${measurements.device_id} = ${devices.device_id} ;;
@@ -44,23 +59,19 @@ explore: measurements {
     relationship: one_to_one
     sql_on: ${measurements.device_id} = ${measurements_window_1min.device_id}
             AND ${measurements.property_measured} = ${measurements_window_1min.property_measured}
-            AND ${measurements.timestamp_second} = ${measurements_window_1min.timestamp_second};;
+            AND ${measurements.timestamp_minute} = ${measurements_window_1min.timestamp_minute};;
   }
 
   join: measurements_window_10min {
     relationship: one_to_one
     sql_on: ${measurements.device_id} = ${measurements_window_1min.device_id}
             AND ${measurements.property_measured} = ${measurements_window_10min.property_measured}
-            AND ${measurements.timestamp_second} = ${measurements_window_10min.timestamp_second};;
-  }
-
-  join: shrinkage_view {
-    relationship: one_to_many
-    sql_on: ${assets.asset_id} = ${shrinkage_view.asset_id} ;;
+            AND ${measurements.timestamp_minute} = ${measurements_window_10min.timestamp_minute};;
   }
 }
 
 explore: events_summary_view {
+  hidden: yes
   persist_for: "0 seconds" #This turns the Looker cache off for queries originating from this explore
   description: "This explore is for quickly loading event summary info."
 
@@ -74,4 +85,15 @@ explore: events_summary_view {
     relationship: one_to_many
     sql_on: ${device_connections.field_meter_tag} = ${paths.field_meter_tag} ;;
   }
+}
+
+explore: measurements_raw_events_duration {
+  hidden: yes
+  persist_for: "0 seconds" #This turns the Looker cache off for queries originating from this explore
+  description: "This explore is for quickly loading event duration data."
+}
+
+explore: shrinkage_view {
+  persist_for: "0 seconds" #This turns the Looker cache off for queries originating from this explore
+  description: "This explore is for quickly loading shrinkage data."
 }
