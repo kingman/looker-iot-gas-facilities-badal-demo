@@ -330,7 +330,8 @@ view: +measurements {
 
 # Filtered measures
 
-  measure: current_period_flow {
+  measure: current_period_litres {
+    label: "Current Timeframe Litres"
     view_label: "Period Over Period Measurements"
     type: sum
     value_format_name: decimal_2
@@ -338,7 +339,8 @@ view: +measurements {
     filters: [period_filtered_measures: "this", property_measured: "flowrate"]
   }
 
-  measure: previous_period_flow {
+  measure: previous_period_litres {
+    label: "Previous Timeframe Litres"
     view_label: "Period Over Period Measurements"
     type: sum
     value_format_name: decimal_2
@@ -346,13 +348,13 @@ view: +measurements {
     filters: [period_filtered_measures: "last", property_measured: "flowrate"]
   }
 
-  measure: flow_pop_change {
+  measure: litres_pop_change {
     view_label: "Period Over Period Measurements"
-    label: "Total Flow Period-Over-Period % Change"
+    label: "Total Litres Period-Over-Period % Change"
     type: number
-    sql: CASE WHEN ${current_period_flow} = 0
+    sql: CASE WHEN ${current_period_litres} = 0
             THEN NULL
-            ELSE (1.0 * ${current_period_flow} / NULLIF(${previous_period_flow} ,0)) - 1 END ;;
+            ELSE (1.0 * ${current_period_litres} / NULLIF(${previous_period_litres} ,0)) - 1 END ;;
     value_format_name: percent_2
   }
 

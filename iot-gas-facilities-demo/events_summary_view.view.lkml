@@ -88,6 +88,33 @@ view: events_summary_view {
     sql: ${TABLE}.start_time ;;
   }
 
+  # dimension_group: of_event_duration {
+  #   type: duration
+  #   intervals: [
+  #     day,
+  #     hour,
+  #     minute,
+  #     second
+  #   ]
+  #   sql_start: ${start_raw} ;;
+  #   sql_end: ${end_raw} ;;
+  # }
+
+  # measure: total_duration {
+  #   type: sum
+  #   sql: ${minutes_of_event_duration} ;;
+  # }
+
+  dimension: event_duration_minutes {
+    type: number
+    sql: TIMESTAMP_DIFF(${end_raw}, ${start_raw}, MINUTE);;
+  }
+
+  measure: total_event_duration_minutes {
+    type: sum
+    sql:  ${event_duration_minutes} ;;
+  }
+
   measure: count_of_events{
     type: count
     drill_fields: []
