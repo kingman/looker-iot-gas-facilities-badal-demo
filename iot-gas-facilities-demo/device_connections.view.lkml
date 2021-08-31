@@ -17,7 +17,8 @@ view: device_connections {
   }
 
   measure: count_of_field_meter_tags {
+    label: "Count of Field Meters"
     type: count
-    drill_fields: [devices.device_id]
+    drill_fields: [paths.field_meter_tag, devices.device_id, devices.meter_type, devices.manufacturer, devices.model_number]
   }
 }

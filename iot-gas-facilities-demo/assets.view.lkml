@@ -9,7 +9,7 @@ view: assets {
     sql: ${TABLE}.asset_id ;;
     link: {
       label: "{{value}} Asset Overview Dashboard"
-      url: "https://badalio.ca.looker.com/dashboards-next/10?Asset%20ID=%22{{ value | encode_uri }}%22&Time%20Granularity=Hour&Timeframe=3%20day"
+      url: "https://badalio.ca.looker.com/dashboards-next/10?Asset%20ID=%22{{ value | encode_uri }}%22&Time%20Granularity=Hour&Timeframe=3%20day&Density+Unit+Conversion=kg"
       icon_url: "http://www.looker.com/favicon.ico"
     }
   }
@@ -39,6 +39,6 @@ view: assets {
 
   measure: count_of_assets{
     type: count
-    drill_fields: [asset_id, paths.count]
+    drill_fields: [asset_id, asset_type, device_connections.count_of_field_meter_tags]
   }
 }

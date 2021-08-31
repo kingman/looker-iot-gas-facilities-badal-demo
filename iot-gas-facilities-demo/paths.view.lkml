@@ -26,8 +26,7 @@ view: paths {
     sql: ${TABLE}.field_meter_tag ;;
     link: {
       label: "{{value}} Field Meter Summary Dashboard"
-      #url: "https://badalio.cloud.looker.com/dashboards-next/16?Time%20Granularity=Hour&Timestamp%20Date=7%20day&Field%20Meter%20Tag=%22{{ value | encode_uri }}%22"
-      url: "https://badalio.ca.looker.com/dashboards-next/9?Field%20Meter%20Tag=%22{{ value | encode_uri }}%22&Time%20Granularity=Hour&Timestamp%20Date=3%20day"
+      url: "https://badalio.ca.looker.com/dashboards-next/9?Field%20Meter%20Tag=%22{{ value | encode_uri }}%22&Time%20Granularity=Hour&Timestamp%20Date=3%20day&Density+Unit+Conversion=kg"
       icon_url: "http://www.looker.com/favicon.ico"
     }
   }

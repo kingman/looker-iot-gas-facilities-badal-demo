@@ -44,7 +44,6 @@ view: events_summary_view {
       icon_url: "http://www.looker.com/favicon.ico"
     }
   }
-# {{ measurements.timestamp_raw._value }}
 
   dimension: property_measured {
     type: string
