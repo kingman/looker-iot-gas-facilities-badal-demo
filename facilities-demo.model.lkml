@@ -94,6 +94,13 @@ explore: measurements_raw_events_duration {
 }
 
 explore: shrinkage_view {
+  hidden: no
   persist_for: "0 seconds" #This turns the Looker cache off for queries originating from this explore
   description: "This explore is for quickly loading shrinkage data."
+
+  join: over_short_view {
+    view_label: "Shrinkage View"
+    relationship: one_to_one
+    sql_on: ${shrinkage_view.compound_primary_key} = ${over_short_view.compound_primary_key} ;;
+  }
 }
