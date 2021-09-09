@@ -87,11 +87,13 @@ view: shrinkage_view {
       END ;;
   }
 
+
 ### MEASURES
+
 
   measure: total_mixed_volume {
     type: sum
-    sql: ${mixed_volume} ;;
+    sql: ${mixed_volume};;
   }
 
   measure: total_shrinkage {
@@ -101,12 +103,12 @@ view: shrinkage_view {
 
   measure: total_shrinkage_volume {
     type: sum
-    sql: ${shrinkage_volume} ;;
+    sql: ${shrinkage_volume};;
   }
 
   measure: average_mixed_volume {
     type: average
-    sql: ${mixed_volume} ;;
+    sql: ${mixed_volume};;
   }
 
   measure: average_shrinkage {
@@ -116,7 +118,7 @@ view: shrinkage_view {
 
   measure: average_shrinkage_volume {
     type: average
-    sql: ${shrinkage_volume} ;;
+    sql: ${shrinkage_volume};;
   }
 
   measure: count {

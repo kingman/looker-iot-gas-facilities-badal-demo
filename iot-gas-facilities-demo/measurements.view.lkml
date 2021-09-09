@@ -111,11 +111,17 @@ view: measurements {
     hidden: no
     type: sum
     value_format_name: decimal_2
+    # The first case implements the density unit convesion
+    # The second case converts the flowrate from m3/hr into E3m3/d (thousand cubic metres per day)
+    # 1 m3/d = 0.001 E3m3/d; so 1 m3/hr = 0.024 E3m3/d
+    # This is done to convert to a more standard measurement than what is generated in our data
     sql:
       CASE
       WHEN ${property_measured} = 'density'
       AND {% parameter density_unit_conversion %} = 'lb'
         THEN ${value}*0.062428
+      WHEN ${property_measured} = 'flowrate'
+        THEN ${value}*0.024
       ELSE
         ${value}
       END
@@ -331,7 +337,7 @@ view: +measurements {
 # Filtered measures
 
   measure: current_period_litres {
-    label: "Current Timeframe Litres"
+    label: "Current Timeframe m3"
     view_label: "Period Over Period Measurements"
     type: sum
     value_format_name: decimal_2
@@ -340,7 +346,7 @@ view: +measurements {
   }
 
   measure: previous_period_litres {
-    label: "Previous Timeframe Litres"
+    label: "Previous Timeframe m3"
     view_label: "Period Over Period Measurements"
     type: sum
     value_format_name: decimal_2
@@ -350,7 +356,7 @@ view: +measurements {
 
   measure: litres_pop_change {
     view_label: "Period Over Period Measurements"
-    label: "Total Litres Period-Over-Period % Change"
+    label: "Total m3 Period-Over-Period % Change"
     type: number
     sql: CASE WHEN ${current_period_litres} = 0
             THEN NULL

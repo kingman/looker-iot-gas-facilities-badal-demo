@@ -54,42 +54,44 @@ view: over_short_view {
     sql: ${TABLE}.timestamp ;;
   }
 
+
 ### MEASURES
+
 
   measure: total_over_short {
     label: "Over/Short"
     type: sum
-    sql: ${balance} ;;
+    sql: ${balance};;
   }
 
   measure: total_inlet_volume {
     type: sum
-    sql: ${inlet} ;;
+    sql: ${inlet};;
   }
 
   measure: total_outlet_volume {
     type: sum
-    sql: ${outlet} ;;
+    sql: ${outlet};;
   }
 
   measure: average_over_short {
     label: "Average Over/Short"
     type: average
-    sql: ${balance} ;;
+    sql: ${balance};;
   }
 
   measure: average_inlet_volume {
     type: average
-    sql: ${inlet} ;;
+    sql: ${inlet};;
   }
 
   measure: average_outlet_volume {
     type: average
-    sql: ${outlet} ;;
+    sql: ${outlet};;
   }
 
   measure: measurement_inaccuracy {
     type: sum
-    sql: ${balance} - ${shrinkage_view.shrinkage_volume} ;;
+    sql: ${balance} - ${shrinkage_view.shrinkage_volume};;
   }
 }
