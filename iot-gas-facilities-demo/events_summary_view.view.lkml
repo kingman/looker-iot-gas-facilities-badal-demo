@@ -45,7 +45,6 @@ view: events_summary_view {
     }
     link: {
       label: "Examine Field Meter during this Event"
-      #url: "https://badalio.ca.looker.com/dashboards-next/9?Field%20Meter%20Tag=%22{{ value | encode_uri }}%22&Time%20Granularity=Hour&Timestamp%20Date=3%20day&Density+Unit+Conversion=kg"
       url: "https://badalio.ca.looker.com/dashboards-next/9?Field+Meter+Tag=%22{{ paths.field_meter_tag._value | encode_uri }}%22&Time+Granularity=Second&Timeframe={{ events_summary_view.start_minute._value | encode_uri }}+to+{{ events_summary_view.end_minute._value | encode_uri }}&Density+Unit+Conversion=kg"
       icon_url: "http://www.looker.com/favicon.ico"
     }
@@ -94,22 +93,18 @@ view: events_summary_view {
     sql: ${TABLE}.start_time ;;
   }
 
-  # dimension_group: of_event_duration {
-  #   type: duration
-  #   intervals: [
-  #     day,
-  #     hour,
-  #     minute,
-  #     second
-  #   ]
-  #   sql_start: ${start_raw} ;;
-  #   sql_end: ${end_raw} ;;
-  # }
+  dimension_group: of_event_duration {
+    type: duration
+    intervals: [
+      day,
+      hour,
+      minute,
+      second
+    ]
+    sql_start: ${start_raw} ;;
+    sql_end: ${end_raw} ;;
+  }
 
-  # measure: total_duration {
-  #   type: sum
-  #   sql: ${minutes_of_event_duration} ;;
-  # }
 
   dimension: event_duration_minutes {
     type: number

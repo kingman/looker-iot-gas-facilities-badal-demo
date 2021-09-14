@@ -71,6 +71,7 @@ view: measurements_raw_events {
 
   measure: event_value {
     type: sum
+    value_format_name: decimal_3
     sql:
       CASE
         WHEN ${property_measured} = 'flowrate'
@@ -82,6 +83,31 @@ view: measurements_raw_events {
 
   measure: average_value {
     type: average
+    value_format_name: decimal_3
+    sql:
+      CASE
+        WHEN ${property_measured} = 'flowrate'
+          THEN ${value}*0.024
+        ELSE
+          ${value}
+      END ;;
+  }
+
+  measure: maximum_value {
+    type: max
+    value_format_name: decimal_3
+    sql:
+      CASE
+        WHEN ${property_measured} = 'flowrate'
+          THEN ${value}*0.024
+        ELSE
+          ${value}
+      END ;;
+  }
+
+  measure: minimum_value {
+    type: min
+    value_format_name: decimal_3
     sql:
       CASE
         WHEN ${property_measured} = 'flowrate'

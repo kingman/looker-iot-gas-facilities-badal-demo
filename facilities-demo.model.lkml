@@ -90,6 +90,11 @@ explore: events_summary_view {
     relationship: many_to_one
     sql_on: ${paths.asset_id} = ${assets.asset_id} ;;
   }
+
+  join: measurements_raw_events {
+    relationship: one_to_many
+    sql_on: ${events_summary_view.event_id} = ${measurements_raw_events.event_id} ;;
+  }
 }
 
 explore: events_summary_extended {
