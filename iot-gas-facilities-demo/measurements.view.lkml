@@ -107,14 +107,16 @@ view: measurements {
     drill_fields: [devices.device_id]
   }
 
-  measure: total_value {
-    hidden: no
-    type: sum
-    value_format_name: decimal_2
+### NOTE
     # The first case implements the density unit convesion
     # The second case converts the flowrate from m3/hr into E3m3/d (thousand cubic metres per day)
     # 1 m3/d = 0.001 E3m3/d; so 1 m3/hr = 0.024 E3m3/d
     # This is done to convert to a more standard measurement than what is generated in our data
+
+  measure: total_value {
+    hidden: no
+    type: sum
+    value_format_name: decimal_2
     sql:
       CASE
       WHEN ${property_measured} = 'density'
@@ -129,7 +131,7 @@ view: measurements {
   }
 
   measure: average_value {
-    # label: "Average Value per Measurement"
+    label: "Average Value per Measurement"
     hidden: no
     type: average
     value_format_name: decimal_2
@@ -138,6 +140,8 @@ view: measurements {
       WHEN ${property_measured} = 'density'
       AND {% parameter density_unit_conversion %} = 'lb'
         THEN ${value}*0.062428
+      WHEN ${property_measured} = 'flowrate'
+        THEN ${value}*0.024
       ELSE
         ${value}
       END
@@ -153,6 +157,8 @@ view: measurements {
     WHEN ${property_measured} = 'density'
     AND {% parameter density_unit_conversion %} = 'lb'
       THEN ${value}*0.062428
+    WHEN ${property_measured} = 'flowrate'
+        THEN ${value}*0.024
     ELSE
       ${value}
     END
