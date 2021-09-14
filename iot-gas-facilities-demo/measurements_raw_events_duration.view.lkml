@@ -73,12 +73,24 @@ view: measurements_raw_events_duration {
 
   measure: event_value {
     type: sum
-    sql: ${value} ;;
+    sql:
+      CASE
+        WHEN ${property_measured} = 'flowrate'
+          THEN ${value}*0.024
+        ELSE
+          ${value}
+      END ;;
   }
 
   measure: average_value {
     type: average
-    sql: ${value} ;;
+    sql:
+      CASE
+        WHEN ${property_measured} = 'flowrate'
+          THEN ${value}*0.024
+        ELSE
+          ${value}
+      END ;;
   }
   measure: count {
     type: count
