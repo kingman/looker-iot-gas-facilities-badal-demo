@@ -161,7 +161,7 @@ view: measurements {
 }
 
 
-# extension to the 'measurements' view that creates the period-over-period measures
+# refinement to the 'measurements' view that creates the period-over-period measures
 
 view: +measurements {
 

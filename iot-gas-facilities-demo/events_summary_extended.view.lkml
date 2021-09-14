@@ -1,4 +1,6 @@
-view: events_summary_view {
+# include: "events_summary_view.view"
+
+view: events_summary_extended {
   sql_table_name: `sandbox-keyera-poc.foglamp_demo.events_summary_view`
     ;;
 
@@ -37,18 +39,6 @@ view: events_summary_view {
   dimension: event_type {
     type: string
     sql: ${TABLE}.event_type ;;
-    link: {
-      label: "Examine this Event"
-      #url: "https://badalio.ca.looker.com/dashboards-next/11?Property%20Measured={{ events_summary_view.property_measured._value | encode_uri }}&Time%20Granularity=Minute&Timeframe=before%20{{ events_summary_view.end_minute._value | encode_uri }}"
-      url: "https://badalio.ca.looker.com/dashboards-next/11?Property%20Measured={{ events_summary_view.property_measured._value | encode_uri }}&Time%20Granularity=Minute&Timeframe=after%20{{ events_summary_view.start_minute._value | encode_uri }}"
-      icon_url: "http://www.looker.com/favicon.ico"
-    }
-    link: {
-      label: "Examine Field Meter during this Event"
-      #url: "https://badalio.ca.looker.com/dashboards-next/9?Field%20Meter%20Tag=%22{{ value | encode_uri }}%22&Time%20Granularity=Hour&Timestamp%20Date=3%20day&Density+Unit+Conversion=kg"
-      url: "https://badalio.ca.looker.com/dashboards-next/9?Field+Meter+Tag=%22{{ paths.field_meter_tag._value | encode_uri }}%22&Time+Granularity=Second&Timeframe={{ events_summary_view.start_minute._value | encode_uri }}+to+{{ events_summary_view.end_minute._value | encode_uri }}&Density+Unit+Conversion=kg"
-      icon_url: "http://www.looker.com/favicon.ico"
-    }
   }
 
   dimension: property_measured {

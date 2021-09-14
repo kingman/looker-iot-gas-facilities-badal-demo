@@ -71,7 +71,7 @@ explore: measurements {
 }
 
 explore: events_summary_view {
-  hidden: yes
+  hidden: no
   persist_for: "0 seconds" #This turns the Looker cache off for queries originating from this explore
   description: "This explore is for quickly loading event summary info."
 
@@ -85,6 +85,17 @@ explore: events_summary_view {
     relationship: one_to_many
     sql_on: ${device_connections.field_meter_tag} = ${paths.field_meter_tag} ;;
   }
+
+  join: assets {
+    relationship: many_to_one
+    sql_on: ${paths.asset_id} = ${assets.asset_id} ;;
+  }
+}
+
+explore: events_summary_extended {
+  hidden: yes
+  persist_for: "0 seconds" #This turns the Looker cache off for queries originating from this explore
+  description: "This explore is for quickly loading event summary info - it does not have liquid syntax so events are aggregated correctly."
 }
 
 explore: measurements_raw_events_duration {
