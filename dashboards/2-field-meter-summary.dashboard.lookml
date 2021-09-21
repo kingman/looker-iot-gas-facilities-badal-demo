@@ -2,6 +2,7 @@
   title: "(2) Field Meter Summary"
   layout: newspaper
   preferred_viewer: dashboards-next
+  refresh: 10 seconds
   elements:
   - name: ''
     type: text
@@ -22,7 +23,7 @@
       https://badalio.cloud.looker.com/boards/3\">Home</a>\n\t<a style=\"background-color:\
       \ #fff; color: #5f6368; padding: 5px 10px;\" href=\"https://badalio.cloud.looker.com/explore/facilities-demo/measurements\"\
       >Explore</a>\n\t<a style=\"background-color: #fff; color: #5f6368; padding:\
-      \ 5px 10px;\" href=\"https://badalio.cloud.looker.com/dashboards-next/18\"\
+      \ 5px 10px;\" href=\"https://badalio.ca.looker.com/dashboards-next/8?Timestamp+Date=7+day\"\
       >Go Back to Facilities Overview</a>\n</span>\n\n<div>"
     row: 0
     col: 0
@@ -73,63 +74,12 @@
     defaults_version: 1
     series_types: {}
     listen:
-      Time Granularity: measurements.timeframe_picker
-      Timestamp Date: measurements.timestamp_date
+      Density Unit Conversion: measurements.density_unit_conversion
       Field Meter Tag: paths.field_meter_tag
-    row: 4
+      Time Granularity: measurements.timeframe_picker
+      Timeframe: measurements.timestamp_second
+    row: 8
     col: 12
-    width: 12
-    height: 9
-  - title: Total Flow Rate
-    name: Total Flow Rate
-    model: facilities-demo
-    explore: measurements
-    type: looker_line
-    fields: [measurements.total_value, measurements.dynamic_timeframe, measurements.property_measured,
-      paths.field_meter_tag]
-    pivots: [measurements.property_measured, paths.field_meter_tag]
-    filters:
-      measurements.property_measured: flowrate
-    sorts: [measurements.property_measured, measurements.dynamic_timeframe, paths.field_meter_tag]
-    limit: 5000
-    column_limit: 50
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    show_null_points: true
-    interpolation: linear
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    defaults_version: 1
-    series_types: {}
-    listen:
-      Time Granularity: measurements.timeframe_picker
-      Timestamp Date: measurements.timestamp_date
-      Field Meter Tag: paths.field_meter_tag
-    row: 4
-    col: 0
     width: 12
     height: 9
   - title: Average Pressure
@@ -169,18 +119,23 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
+    y_axes: [{label: Average Pressure (Pa), orientation: left, series: [{axisId: measurements.average_value,
+            id: pressure - M_1002 - measurements.average_value, name: pressure - M_1002},
+          {axisId: measurements.average_value, id: pressure - M_1003 - measurements.average_value,
+            name: pressure - M_1003}], showLabels: true, showValues: true, unpinAxis: false,
+        tickDensity: default, tickDensityCustom: 5, type: linear}]
+    series_types: {}
     ordering: none
     show_null_labels: false
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    series_types: {}
     listen:
-      Time Granularity: measurements.timeframe_picker
-      Timestamp Date: measurements.timestamp_date
       Field Meter Tag: paths.field_meter_tag
-    row: 13
+      Time Granularity: measurements.timeframe_picker
+      Timeframe: measurements.timestamp_second
+    row: 17
     col: 12
     width: 12
     height: 9
@@ -189,8 +144,8 @@
     model: facilities-demo
     explore: measurements
     type: looker_line
-    fields: [measurements.dynamic_timeframe, measurements.property_measured, paths.field_meter_tag,
-      measurements.average_value, measurements.total_value]
+    fields: [measurements.dynamic_timeframe, measurements.total_value, measurements.average_value,
+      measurements.property_measured, paths.field_meter_tag]
     pivots: [measurements.property_measured, paths.field_meter_tag]
     filters:
       measurements.property_measured: flowrate
@@ -221,7 +176,7 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
-    y_axes: [{label: '', orientation: left, series: [{axisId: measurements.total_value,
+    y_axes: [{label: Total Flow Rate (E3m3/d), orientation: left, series: [{axisId: measurements.total_value,
             id: flowrate - M_1000 - measurements.total_value, name: flowrate - M_1000
               - Measurements Total Value}, {axisId: measurements.total_value, id: flowrate
               - M_1001 - measurements.total_value, name: flowrate - M_1001 - Measurements
@@ -230,9 +185,9 @@
               Value}, {axisId: measurements.total_value, id: flowrate - M_1003 - measurements.total_value,
             name: flowrate - M_1003 - Measurements Total Value}], showLabels: true,
         showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
-        type: linear}, {label: !!null '', orientation: right, series: [{axisId: measurements.average_value,
-            id: flowrate - M_1000 - measurements.average_value, name: flowrate - M_1000
-              - Measurements Average Value}, {axisId: measurements.average_value,
+        type: linear}, {label: Average Flow Rate (E3m3/d), orientation: right, series: [
+          {axisId: measurements.average_value, id: flowrate - M_1000 - measurements.average_value,
+            name: flowrate - M_1000 - Measurements Average Value}, {axisId: measurements.average_value,
             id: flowrate - M_1001 - measurements.average_value, name: flowrate - M_1001
               - Measurements Average Value}, {axisId: measurements.average_value,
             id: flowrate - M_1002 - measurements.average_value, name: flowrate - M_1002
@@ -248,10 +203,10 @@
     totals_color: "#808080"
     defaults_version: 1
     listen:
-      Time Granularity: measurements.timeframe_picker
-      Timestamp Date: measurements.timestamp_date
       Field Meter Tag: paths.field_meter_tag
-    row: 13
+      Time Granularity: measurements.timeframe_picker
+      Timeframe: measurements.timestamp_second
+    row: 8
     col: 0
     width: 12
     height: 9
@@ -296,12 +251,14 @@
     header_font_size: 12
     rows_font_size: 12
     defaults_version: 1
+    refresh: 1 day
     listen:
       Field Meter Tag: paths.field_meter_tag
+      Timeframe: measurements.timestamp_second
     row: 2
     col: 0
     width: 6
-    height: 2
+    height: 4
   - title: New Tile
     name: New Tile (2)
     model: facilities-demo
@@ -343,9 +300,11 @@
     header_font_size: 12
     rows_font_size: 12
     defaults_version: 1
+    refresh: 1 day
     listen:
       Field Meter Tag: paths.field_meter_tag
-    row: 2
+      Timeframe: measurements.timestamp_second
+    row: 6
     col: 6
     width: 6
     height: 2
@@ -386,10 +345,12 @@
     header_font_size: 12
     rows_font_size: 12
     defaults_version: 1
+    refresh: 1 day
     listen:
       Field Meter Tag: paths.field_meter_tag
-    row: 2
-    col: 12
+      Timeframe: measurements.timestamp_second
+    row: 6
+    col: 0
     width: 6
     height: 2
   - title: New Tile
@@ -429,12 +390,91 @@
     header_font_size: 12
     rows_font_size: 12
     defaults_version: 1
+    refresh: 1 day
+    listen:
+      Field Meter Tag: paths.field_meter_tag
+      Timeframe: measurements.timestamp_second
+    row: 2
+    col: 6
+    width: 6
+    height: 4
+  - title: Critical Events by Day
+    name: Critical Events by Day
+    model: facilities-demo
+    explore: events_summary_view
+    type: marketplace_viz_calendar_heatmap::calendar_heatmap-marketplace
+    fields: [events_summary_view.count_of_events, events_summary_view.start_date]
+    fill_fields: [events_summary_view.start_date]
+    sorts: [events_summary_view.start_date desc]
+    limit: 500
+    hidden_fields: []
+    hidden_points_if_no: []
+    series_labels: {}
+    show_view_names: true
+    series_types: {}
+    defaults_version: 0
     listen:
       Field Meter Tag: paths.field_meter_tag
     row: 2
-    col: 18
-    width: 6
-    height: 2
+    col: 12
+    width: 12
+    height: 6
+  - title: Average Temperature
+    name: Average Temperature
+    model: facilities-demo
+    explore: measurements
+    type: looker_line
+    fields: [measurements.dynamic_timeframe, measurements.property_measured, paths.field_meter_tag,
+      measurements.average_value]
+    pivots: [measurements.property_measured, paths.field_meter_tag]
+    filters:
+      measurements.property_measured: temperature
+    sorts: [measurements.property_measured, measurements.dynamic_timeframe, paths.field_meter_tag]
+    limit: 5000
+    column_limit: 50
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    y_axes: [{label: Average Temperature (°C), orientation: left, series: [{axisId: measurements.average_value,
+            id: temperature - M_1003 - measurements.average_value, name: temperature
+              - M_1003}], showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
+        tickDensityCustom: 5, type: linear}]
+    series_types: {}
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    listen:
+      Field Meter Tag: paths.field_meter_tag
+      Time Granularity: measurements.timeframe_picker
+      Timeframe: measurements.timestamp_second
+    row: 17
+    col: 0
+    width: 12
+    height: 9
   filters:
   - name: Field Meter Tag
     title: Field Meter Tag
@@ -453,7 +493,7 @@
   - name: Time Granularity
     title: Time Granularity
     type: field_filter
-    default_value: Minute
+    default_value: Hour
     allow_multiple_values: true
     required: false
     ui_config:
@@ -464,10 +504,10 @@
     explore: measurements
     listens_to_filters: []
     field: measurements.timeframe_picker
-  - name: Timestamp Date
-    title: Timestamp Date
+  - name: Timeframe
+    title: Timeframe
     type: field_filter
-    default_value: 7 day
+    default_value: 3 day
     allow_multiple_values: true
     required: false
     ui_config:
@@ -477,4 +517,18 @@
     model: facilities-demo
     explore: measurements
     listens_to_filters: []
-    field: measurements.timestamp_date
+    field: measurements.timestamp_second
+  - name: Density Unit Conversion
+    title: Density Unit Conversion
+    type: field_filter
+    default_value: kg
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: dropdown_menu
+      display: inline
+      options: []
+    model: facilities-demo
+    explore: measurements
+    listens_to_filters: []
+    field: measurements.density_unit_conversion
