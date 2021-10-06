@@ -24,7 +24,7 @@ explore: measurements {
 
   # DELETE THIS WHEN FINISHED TESTING ACCESS FILTER
   access_filter: {
-    field: paths.field_meter_tag
+    field: device_connections.field_meter_tag
     user_attribute: field_meters_access
   }
 
