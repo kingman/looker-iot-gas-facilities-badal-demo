@@ -2,6 +2,7 @@ connection: "bigquery-looker-sandbox"
 
 include: "/iot-gas-facilities-demo/*.view.lkml"                # include all views in the views/ folder in this project
 include: "/dashboards/*.dashboard.lookml"
+include: "/bqml/*.view.lkml"
 
 explore: measurements {
   persist_for: "0 seconds" #This turns the Looker cache off for queries originating from this explore
@@ -19,6 +20,12 @@ explore: measurements {
         measurements.timestamp_date: "7 day"
       ]
     }
+  }
+
+  # DELETE THIS WHEN FINISHED TESTING ACCESS FILTER
+  access_filter: {
+    field: paths.field_meter_tag
+    user_attribute: field_meters_access
   }
 
   join: devices {
@@ -120,3 +127,5 @@ explore: shrinkage_view {
     sql_on: ${shrinkage_view.compound_primary_key} = ${over_short_view.compound_primary_key} ;;
   }
 }
+
+# explore: arima_model_training_data {}
