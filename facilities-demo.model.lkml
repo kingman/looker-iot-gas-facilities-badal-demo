@@ -4,6 +4,10 @@ include: "/iot-gas-facilities-demo/*.view.lkml"                # include all vie
 include: "/dashboards/*.dashboard.lookml"
 include: "/bqml/*.view.lkml"
 
+datagroup: arima_trigger {
+  sql_trigger: SELECT CURRENT_DATE() ;;
+}
+
 explore: measurements {
   persist_for: "0 seconds" #This turns the Looker cache off for queries originating from this explore
 
@@ -23,10 +27,10 @@ explore: measurements {
   }
 
   # DELETE THIS WHEN FINISHED TESTING ACCESS FILTER
-  access_filter: {
-    field: device_connections.field_meter_tag
-    user_attribute: field_meters_access
-  }
+  # access_filter: {
+  #   field: device_connections.field_meter_tag
+  #   user_attribute: field_meters_access
+  # }
 
   join: devices {
    relationship: many_to_one
@@ -127,5 +131,3 @@ explore: shrinkage_view {
     sql_on: ${shrinkage_view.compound_primary_key} = ${over_short_view.compound_primary_key} ;;
   }
 }
-
-# explore: arima_model_training_data {}
