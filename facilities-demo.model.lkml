@@ -14,7 +14,7 @@ explore: measurements {
   # Added an aggregate table to speed up the load time for the "Assets" tile in the System Overview dashboard
   aggregate_table: rollup__assets_asset_id__assets_asset_type__paths_designation__property_measured__3 {
     materialization: {
-      sql_trigger_value: SELECT CURDATE() ;;
+      sql_trigger_value: SELECT CURRENT_DATE() ;;
     }
     query: {
       dimensions: [assets.asset_id, assets.asset_type, paths.designation, property_measured]
