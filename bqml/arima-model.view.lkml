@@ -35,13 +35,14 @@ include: "/iot-gas-facilities-demo/measurements.view"
          time_series_data_col = 'minute_value',
          time_series_id_col = ['device_id', 'property_measured'],
          data_frequency = 'PER_MINUTE',
+         horizon = 2880
         ) AS
       SELECT
-        ${measurements.timestamp_minute} as timestamp_minutes,
-        ${measurements.device_id} as device_id,
-        ${measurements.property_measured} as property_measured,
-        SUM(${measurements.value}) as minute_value
-      FROM ${measurements.SQL_TABLE_NAME}
+        DATETIME_TRUNC(measurements.timestamp, MINUTE) as timestamp_minutes,
+        measurements.device_id as device_id,
+        measurements.property_measured as property_measured,
+        SUM(measurements.value) as minute_value
+      FROM ${measurements.SQL_TABLE_NAME} as measurements
       GROUP BY timestamp_minutes, device_id, property_measured;;
     }
 

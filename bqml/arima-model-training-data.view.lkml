@@ -1,37 +1,43 @@
-# include: "/iot-gas-facilities-demo/measurements.view"
-# include: "/facilities-demo.model"
+include: "/iot-gas-facilities-demo/measurements.view"
+include: "/facilities-demo.model"
 
-# view: arima_model_training_data {
-#   derived_table: {
-#     sql_trigger_value: SELECT CURDATE() ;;
-#     explore_source: measurements {
-#       column: timestamp { field: measurements.timestamp_minute }
-#       column: device_id { field: measurements.device_id }
-#       column: property_measured { field: measurements.property_measured }
-#       column: value { field: measurements.value }
+view: arima_model_training_data {
+  derived_table: {
+    datagroup_trigger: arima_trigger
+    sql:
+      SELECT
+        DATETIME_TRUNC(timestamp, MINUTE) as timestamp_minutes,
+        device_id,
+        property_measured,
+        SUM(value) as minute_value
+      FROM `sandbox-keyera-poc.foglamp_demo.measurements_raw`
+      GROUP BY timestamp_minutes, device_id, property_measured;;
 
-#       filters: {
-#         field: measurements.timestamp_minute
-#         value: "2021-07-01 00:00:00 to 2021-09-01 00:00:00"
-#       }
-#     }
-#   }
+  }
 
-#   dimension_group: timestamp {
-#     type: time
-#     timeframes: [raw, date, hour, minute, second]
-#     sql: ${TABLE}.timestamp ;;
-#   }
+  # dimension_group: timestamp_minutes {
+  #   type: time
+  #   timeframes: [raw, date, hour, minute, second]
+  #   sql: ${TABLE}.timestamp ;;
+  # }
 
-#   dimension: device_id {
-#     type: string
-#   }
+  dimension: timestamp_minutes {
+    primary_key: no
+    type: date_minute
+    sql:  ${TABLE}.timestamp_minutes;;
+  }
 
-#   dimension: property_measured {
-#     type: string
-#   }
+  dimension: device_id {
+    type: string
+  }
 
-#   dimension: value {
-#     type: number
-#   }
-# }
+  dimension: property_measured {
+    type: string
+  }
+
+  dimension: minute_value {
+    type: number
+  }
+}
+
+explore: arima_model_training_data {}
