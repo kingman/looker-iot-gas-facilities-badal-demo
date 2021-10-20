@@ -15,14 +15,16 @@ view: arima_explain_forecast_and_history {
     sql: CONCAT(${TABLE}.device_id, ${TABLE}.property_measured, ${TABLE}.time_series_timestamp) ;;
   }
 
-# These dimensions refer to the device and property combination that each ARIMA model is built for.
+  # These dimensions refer to the device and property combination that each ARIMA model is built for.
 
   dimension: device_id {
+    description: "This specifies which Device ID & Measurement Property the ARIMA model is for."
     type: string
     sql: ${TABLE}.device_id ;;
   }
 
   dimension: property_measured {
+    description: "This specifies which Device ID & Measurement Property the ARIMA model is for."
     type: string
     sql: ${TABLE}.property_measured ;;
   }

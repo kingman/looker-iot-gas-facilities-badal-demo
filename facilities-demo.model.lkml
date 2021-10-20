@@ -131,3 +131,28 @@ explore: shrinkage_view {
     sql_on: ${shrinkage_view.compound_primary_key} = ${over_short_view.compound_primary_key} ;;
   }
 }
+### ARIMA MODEL EXPLORES ###
+
+
+explore: arima_model_evaluate {
+  description: "This explore shows information about the ARIMA models being used."
+}
+
+explore: arima_explain_forecast_and_history {
+  label: "ARIMA Predictions and Anomaly Detection"
+
+  join: measurements {
+    relationship: one_to_one
+    sql_on: ${arima_explain_forecast_and_history.device_id} = ${measurements.device_id}
+            AND ${arima_explain_forecast_and_history.property_measured} = ${measurements.property_measured}
+            AND ${arima_explain_forecast_and_history.time_series_minute} = ${measurements.timestamp_minute}
+            ;;
+  }
+
+  join: arima_detect_anomalies {
+    relationship: one_to_one
+    sql_on: ${measurements.device_id} = ${arima_detect_anomalies.device_id}
+            AND ${measurements.property_measured} = ${arima_detect_anomalies.property_measured}
+            AND ${measurements.timestamp_minute} = ${arima_detect_anomalies.timestamp_minute} ;;
+  }
+}

@@ -11,11 +11,13 @@ view: arima_model_evaluate {
   # These dimensions refer to the device and property combination that each ARIMA model is built for.
 
   dimension: device_id {
+    description: "This specifies which Device ID & Measurement Property the ARIMA model is for."
     type: string
     sql: ${TABLE}.device_id ;;
   }
 
   dimension: property_measured {
+    description: "This specifies which Device ID & Measurement Property the ARIMA model is for."
     type: string
     sql: ${TABLE}.property_measured ;;
   }
@@ -89,5 +91,3 @@ view: arima_model_evaluate {
   }
 
 }
-
-explore: arima_model_evaluate {}
