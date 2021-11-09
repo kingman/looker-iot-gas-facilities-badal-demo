@@ -46,7 +46,7 @@ view: arima_detect_anomalies {
 
   dimension: is_anomaly {
     type: yesno
-    sql: ${TABLE}.is_anomaly = 'true' ;;
+    sql: ${TABLE}.is_anomaly = true ;;
   }
 
   dimension: lower_bound {
@@ -89,4 +89,18 @@ view: arima_detect_anomalies {
     value_format_name: decimal_4
   }
 
+  measure: is_anomany_numeric {
+    label: "Is Anomaly (Numeric)"
+    type: sum
+    sql: CASE ${TABLE}.is_anomaly
+          WHEN true THEN 1
+          ELSE 0
+         END;;
+  }
+
+  measure: anomaly_probability_numeric {
+    label: "Anomaly Probability"
+    type: average
+    sql: ${anomaly_probability} ;;
+  }
 }

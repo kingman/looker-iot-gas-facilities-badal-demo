@@ -1,4 +1,4 @@
-# include: "events_summary_view.view"
+# This view does not have liquid syntax so events are aggregated correctly.
 
 view: events_summary_extended {
   sql_table_name: `sandbox-keyera-poc.foglamp_demo.events_summary_view`

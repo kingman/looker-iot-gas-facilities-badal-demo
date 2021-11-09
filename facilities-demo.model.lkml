@@ -5,26 +5,27 @@ include: "/dashboards/*.dashboard.lookml"
 include: "/bqml/*.view.lkml"
 
 datagroup: arima_trigger {
-  sql_trigger: SELECT CURRENT_DATE() ;;
+  sql_trigger: SELECT 1 ;;
+  # sql_trigger: SELECT CURRENT_DATE() ;;
 }
 
 explore: measurements {
   persist_for: "0 seconds" #This turns the Looker cache off for queries originating from this explore
 
   # Added an aggregate table to speed up the load time for the "Assets" tile in the System Overview dashboard
-  aggregate_table: rollup__assets_asset_id__assets_asset_type__paths_designation__property_measured__3 {
-    materialization: {
-      sql_trigger_value: SELECT CURRENT_DATE() ;;
-    }
-    query: {
-      dimensions: [assets.asset_id, assets.asset_type, paths.designation, property_measured]
-      measures: [average_value]
-      filters: [
-        measurements.property_measured: "temperature,pressure,flowrate,density",
-        measurements.timestamp_date: "7 day"
-      ]
-    }
-  }
+  # aggregate_table: rollup__assets_asset_id__assets_asset_type__paths_designation__property_measured__3 {
+  #   materialization: {
+  #     sql_trigger_value: SELECT CURRENT_DATE() ;;
+  #   }
+  #   query: {
+  #     dimensions: [assets.asset_id, assets.asset_type, paths.designation, property_measured]
+  #     measures: [average_value]
+  #     filters: [
+  #       measurements.property_measured: "temperature,pressure,flowrate,density",
+  #       measurements.timestamp_date: "7 day"
+  #     ]
+  #   }
+  # }
 
   # DELETE THIS WHEN FINISHED TESTING ACCESS FILTER
   # access_filter: {
